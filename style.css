@@ -1,0 +1,13 @@
+.comment-div{
+    display: flex;
+}
+/* .img-div{
+    width: 10px;
+    height: 10px;
+} */
+
+.profile-img{
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+}
