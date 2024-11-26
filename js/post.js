@@ -35,7 +35,7 @@ function sendMessage() {
   
   messages = [{
     role: "user",
-    content: "I'm doing a project to let user upload text and one image like what they will do on social media,and let you to give comment on it like real people do. now I need a list of 20 netizen's ID(not random and can with or without numbers) and comment . Be very humorous and the content can be positive or negative. Format is [netizen ID,{comment}]. each comment should in {comment} .Must separate different notification arrays with semicolons. Do not include space or anything other than the formatted list.Here are the user's blog: "+ select("#file-input").value() + select("#input-text").value(),
+    content: "I'm doing a project to let user upload text and one image like what they will do on social media,and let you to give comment on it like real people do. now I need a list of 20 comments. Be very humorous and the content can be positive or negative. Respond as valid JSON without any prefix. Use the properties \"id\" and \"comment\" for each comment. Here are the user's blog: "+ select("#file-input").value() + select("#input-text").value(),
   }];
   
   select("#input-text").value("");
@@ -70,15 +70,19 @@ function draw() {
     image(uploadedImage, 10, 50, uploadedImage.width / 2, uploadedImage.height / 2);
   }
 }
+
 function pushInputToArray(input) {
-  let formatted = input.replace(/\[|\]|/g, '').replace(/\n/g, '').split(";");
-  for (let i = 0; i < formatted.length; i ++) {
-    // console.log(formatted[i].split(',"'))
-    let sth = formatted[i].split(",{");
-    let final = [sth[0], sth[1].slice(0, -1)]
-    // console.log(final)
-    commentArray.push(final);
+  let commentsArray = [];
+  try {
+    input = input.replace('```json', '');
+    input = input.replace('```', '');
+    input = input.trim();
+    commentsArray = JSON.parse(input);
+    console.log(commentsArray);
+  } catch (e) {
+    console.log('Got invalid JSON back from GPT');
+    return;
   }
-  console.log(commentArray)
- 
+
+  updateComments(commentsArray);
 }

@@ -1,13 +1,6 @@
-let response = []
 let commentsDiv = document.getElementById("comments-div");
-   
 
-if(commentArray.length!=0){
-response=commentArray;
-    }
-// setInterval(updateComments, 1000);
-
-function updateComments() {
+function updateComments(response) {
     for (let i = 0; i < response.length; i++) {
         let comment = document.createElement("div");
         comment.className = "comment-div";
@@ -30,11 +23,11 @@ function updateComments() {
 
         let ID = document.createElement("p");
         ID.className="id";
-        ID.textContent = response[i][0]
+        ID.textContent = response[i].id;
         txtDiv.appendChild(ID);
         let Comment = document.createElement("p");
         Comment.className="comment";
-        Comment.textContent = response[i][1]
+        Comment.textContent = response[i].comment;
         txtDiv.appendChild(Comment);
     }
 }
