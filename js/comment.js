@@ -3,9 +3,9 @@ let commentsDiv = document.getElementById("comments-div");
    
 
 if(commentArray.length!=0){
-response=commentArray;
-    }
-// setInterval(updateComments, 1000);
+    let array2 = [...commentArray];  // 使用扩展运算符复制array1的元素到array2
+    console.log(commentArray);         }
+ setInterval(updateComments, 10);
 
 function updateComments() {
     for (let i = 0; i < response.length; i++) {
